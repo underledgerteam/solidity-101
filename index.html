@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Listening Event from Contract</title>
+</head>
+
+<body style="text-align: center;">
+  <h1>Test Listening Event from Contract</h1>
+  <hr />
+  <div id="content"></div>
+</body>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js" integrity="sha512-/T7YwzOsNeoNkuTfYKXn3CrJCGc5cnC8T4QW46Hy+3Xjdjrxzokmbx8M8Xavjq1K7dN4958kIRGy4J03VRIlSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  window.web3.currentProvider.request({ method: "eth_requestAccounts" });
+
+  const abi = [{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"string","name":"message","type":"string"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"Log","type":"event"},{"inputs":[],"name":"emitEvent","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+  const web3 = new Web3(window.web3.currentProvider);
+  const ContractEvent = new web3.eth.Contract(abi, "0xDA424729c4aF50edb29a38031D64c02616F4642F");
+
+  ContractEvent.events.Log({}, (error, event) => { 
+    console.log("event=> ", event);
+    const element = document.getElementById("content");
+
+    let message = document.createElement("h1"), sender = document.createElement("h2"), timestamp = document.createElement("h3");
+
+    let text = document.createTextNode(`Message: ${event.returnValues.message}`);
+    message.appendChild(text);
+    element.appendChild(message);
+
+    text = document.createTextNode(`Sender: ${event.returnValues.sender}`);
+    sender.appendChild(text);
+    element.appendChild(sender);
+
+    text = document.createTextNode(`Timestamp: ${event.returnValues.timestamp} to DateTime:  ${new Date(Number(event.returnValues.timestamp) * 1000).toLocaleString("th-TH")}`);
+    timestamp.appendChild(text);
+    element.appendChild(timestamp);
+  
+    element.appendChild(document.createElement("hr"));
+  });
+</script>
+
+
+</html>

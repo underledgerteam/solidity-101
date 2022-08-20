@@ -19,11 +19,11 @@
 <script>
   window.web3.currentProvider.request({ method: "eth_requestAccounts" });
 
-  const abi = [{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"string","name":"message","type":"string"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"Log","type":"event"},{"inputs":[],"name":"emitEvent","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+  const abi = [{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"string","name":"message","type":"string"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"HelloMessage","type":"event"},{"inputs":[],"name":"emitEvent","outputs":[],"stateMutability":"nonpayable","type":"function"}];
   const web3 = new Web3(window.web3.currentProvider);
-  const ContractEvent = new web3.eth.Contract(abi, "0xDA424729c4aF50edb29a38031D64c02616F4642F");
+  const ContractEvent = new web3.eth.Contract(abi, "0xD75018044c29358D85AAe7DA2C18d6e414F2943B");
 
-  ContractEvent.events.Log({}, (error, event) => { 
+  ContractEvent.events.HelloMessage({}, (error, event) => { 
     console.log("event=> ", event);
     const element = document.getElementById("content");
 

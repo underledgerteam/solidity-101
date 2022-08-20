@@ -8,7 +8,9 @@ contract SampleFunction{
     uint public number = 0;
 
     receive()external payable{
-        console.log("receive()is called.");
+        console.log("Before assert receive()is called.");
+        require(number==1, "number != 1");
+        console.log("After assert receive()is called.");
     }
     fallback()external payable{
         console.log("fallback()is called.");

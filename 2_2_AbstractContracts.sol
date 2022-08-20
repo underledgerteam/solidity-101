@@ -8,7 +8,7 @@ abstract contract SampleAge {
     function getAge() public virtual view returns (uint256){
         return age;
     }
-    function setAge(uint256 _age) public virtual {}
+    function setAge(uint256 _age) public virtual;
 }
 
 contract SampleName is SampleAge {
